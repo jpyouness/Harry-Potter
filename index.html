@@ -220,3 +220,26 @@
         }
 
         // Function to check the entered code
+        function checkCode(boxNumber) {
+            const enteredCode = document.getElementById('code' + boxNumber).value;
+            if (enteredCode === correctCodes[boxNumber]) {
+                document.getElementById('modal' + boxNumber).style.display = 'none';
+                document.getElementById('hidden-image').style.display = 'block';
+                showMessage(boxMessages[boxNumber]);
+            } else {
+                alert("Incorrect code, try again.");
+            }
+        }
+
+        // Function to show a message after unlocking
+        function showMessage(message) {
+            const messageBox = document.getElementById('message-box');
+            messageBox.innerHTML = message;
+            messageBox.style.display = 'block';
+            setTimeout(function () {
+                messageBox.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
