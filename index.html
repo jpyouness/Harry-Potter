@@ -105,27 +105,32 @@
         .modal button:hover {
             background-color: #45a049;
         }
-        .hidden-image {
+        /* Cloud Style */
+        .cloud {
             display: none;
-            position: absolute;
-            bottom: 20px;
+            position: fixed;
+            bottom: 0;
             left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
+            width: 150px;
+            height: 80px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Cloud_icon_2.svg/600px-Cloud_icon_2.svg.png');
+            background-size: contain;
+            background-repeat: no-repeat;
             cursor: pointer;
+            transform: translateX(-50%);
         }
         .message-box {
             display: none;
             position: fixed;
-            top: 50%;
+            bottom: 100px;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 10px;
+            width: 300px;
             text-align: center;
-            max-width: 80%;
+            color: white;
         }
     </style>
 </head>
@@ -187,31 +192,28 @@
         <button onclick="checkCode(6)">Submit</button>
     </div>
 
-    <!-- Hidden Image -->
-    <img src="https://www.example.com/your-image.png" alt="Image" class="hidden-image" id="hidden-image" onclick="showMessage('Congratulations! You unlocked the secret!')">
+    <!-- Hidden Cloud that Appears When Box 1 Code is Correct -->
+    <div id="hidden-cloud" class="cloud" onclick="showCloudMessage()"></div>
 
-    <!-- Dynamic Message Box -->
+    <!-- Message Box -->
     <div id="message-box" class="message-box"></div>
 
     <script>
-        // Debugging log to check if script is running
-        console.log("JavaScript loaded successfully");
-
-        // Define unique codes for each box
+        // Correct codes for each box
         const correctCodes = {
-            1: "abcd",  // Correct code for Box 1
-            2: "efgh",  // Correct code for Box 2
-            3: "ijkl",  // Correct code for Box 3
-            4: "mnop",  // Correct code for Box 4
-            5: "qrst",  // Correct code for Box 5
-            6: "uvwx"   // Correct code for Box 6
+            1: "1234",
+            2: "2345",
+            3: "3456",
+            4: "4567",
+            5: "5678",
+            6: "6789"
         };
 
-        // Define messages for each box
+        // Messages for each box
         const boxMessages = {
-            1: "Box 1 code is correct! Welcome to the secret area!",
-            2: "Box 2 code is correct! You've unlocked a new mystery!",
-            3: "Box 3 code is correct! You are getting closer!",
+            1: "Box 1 code is correct! The cloud has appeared!",
+            2: "Box 2 code is correct! Keep going!",
+            3: "Box 3 code is correct! Almost there!",
             4: "Box 4 code is correct! Amazing progress!",
             5: "Box 5 code is correct! You're a true wizard!",
             6: "Box 6 code is correct! Well done on unlocking the final box!"
@@ -219,33 +221,32 @@
 
         // Open the modal when a box is clicked
         function openModal(boxNumber) {
-            console.log(`Box ${boxNumber} clicked`);  // Debugging log
             document.getElementById('modal' + boxNumber).style.display = 'block';
         }
 
         // Check the entered code and unlock the image and message
         function checkCode(boxNumber) {
             const enteredCode = document.getElementById('code' + boxNumber).value;
-            console.log(`Entered Code for Box ${boxNumber}: ${enteredCode}`);  // Debugging log
             if (enteredCode === correctCodes[boxNumber]) {
                 document.getElementById('modal' + boxNumber).style.display = 'none';
-                document.getElementById('hidden-image').style.display = 'block';
-                showMessage(boxMessages[boxNumber]);
+                alert(boxMessages[boxNumber]);
+
+                // Show the cloud if box 1 code is correct
+                if (boxNumber === 1) {
+                    document.getElementById('hidden-cloud').style.display = 'block';
+                }
             } else {
-                alert("Incorrect code, try again.");
+                alert("Incorrect code. Try again!");
             }
         }
 
-        // Function to show a message after unlocking
-        function showMessage(message) {
-            console.log(`Showing message: ${message}`);  // Debugging log
-            const messageBox = document.getElementById('message-box');
-            messageBox.innerHTML = message;
-            messageBox.style.display = 'block';
-            setTimeout(function () {
-                messageBox.style.display = 'none';
-            }, 5000);
+        // Show the cloud message when the cloud is clicked
+        function showCloudMessage() {
+            const cloudMessage = "You clicked the cloud! This message is dynamic!";
+            document.getElementById('message-box').innerText = cloudMessage;
+            document.getElementById('message-box').style.display = 'block';
         }
     </script>
+
 </body>
 </html>
