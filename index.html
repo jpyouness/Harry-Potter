@@ -12,9 +12,8 @@
             margin: 0;
             padding: 0;
             position: relative;
-            overflow: hidden;
             height: 100vh;
-            z-index: 0;
+            overflow: hidden;
         }
 
         h1 {
@@ -23,18 +22,22 @@
             font-size: 3em;
             font-family: 'Courier New', Courier, monospace;
             text-transform: uppercase;
-            z-index: 2;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
         }
 
         .scene {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             background-image: url('https://images3.alphacoders.com/130/thumb-1920-1303534.png');
             background-size: cover;
             background-position: center;
             animation: moveBackground 30s infinite linear;
-            z-index: -1; /* Send background to back */
+            z-index: 0; /* Background layer */
         }
 
         @keyframes moveBackground {
@@ -74,6 +77,8 @@
             cursor: pointer;
             transition: transform 0.3s;
             z-index: 10; /* Ensure boxes are clickable */
+            margin-left: 20px; /* Space out boxes */
+            margin-top: 10%;
         }
 
         .box:hover {
@@ -101,7 +106,7 @@
             border-radius: 10px;
             width: 300px;
             text-align: center;
-            z-index: 20;
+            z-index: 20; /* Ensure modals are on top */
         }
 
         .modal input {
@@ -230,10 +235,4 @@
             modals.forEach(modal => {
                 if (event.target === modal) {
                     modal.style.display = 'none';
-                }
-            });
-        };
-    </script>
-
-</body>
-</html>
+               
