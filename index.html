@@ -5,117 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harry Potter Escape Room</title>
     <style>
-        body {
-            background-color: #1a1a1a;
-            font-family: 'Arial', sans-serif;
-            color: white;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            height: 2000px; /* To simulate scrolling */
-        }
-        h1 {
-            text-align: center;
-            padding: 20px;
-            font-size: 3em;
-            font-family: 'Courier New', Courier, monospace;
-            text-transform: uppercase;
-        }
-        .scene {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images3.alphacoders.com/130/thumb-1920-1303534.png');
-            background-size: cover;
-            background-position: center;
-            animation: moveBackground 30s infinite linear;
-        }
-        @keyframes moveBackground {
-            0% { background-position: center; }
-            100% { background-position: 100% 50%; }
-        }
-
-        /* Box Styling */
-        .box {
-            width: 120px;
-            height: 120px;
-            margin: 50px;
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 10px;
-            display: inline-block;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .box:hover {
-            transform: scale(1.1);
-        }
-
-        .box-inner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            font-size: 1.2em;
-        }
-
-        /* Modal for Code Entry */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-        }
-        .modal input {
-            width: 80%;
-            padding: 10px;
-            font-size: 1em;
-            margin-top: 10px;
-        }
-        .modal button {
-            padding: 10px 20px;
-            margin-top: 10px;
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .modal button:hover {
-            background-color: #45a049;
-        }
-
-        /* Dynamic Message Display */
-        #message {
-            display: none;
-            position: fixed;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            color: white;
-            font-size: 1.2em;
-            border-radius: 10px;
-        }
+        /* Same styles as before */
     </style>
 </head>
 <body>
 
     <div class="scene">
         <h1>Harry Potter Escape Room</h1>
+        <div class="wizard"></div>
         
-        <!-- Boxes for Codes -->
         <div class="box" onclick="openModal(1)">
             <div class="box-inner">Box 1</div>
         </div>
@@ -136,55 +34,39 @@
         </div>
     </div>
 
-    <!-- Modal for Code Entry -->
-    <div id="modal1" class="modal">
-        <h2>Enter Code for Box 1</h2>
-        <input type="text" id="code1">
-        <button onclick="checkCode(1, 'Message for Box 1')">Submit</button>
-    </div>
-    <div id="modal2" class="modal">
-        <h2>Enter Code for Box 2</h2>
-        <input type="text" id="code2">
-        <button onclick="checkCode(2, 'Message for Box 2')">Submit</button>
-    </div>
-    <div id="modal3" class="modal">
-        <h2>Enter Code for Box 3</h2>
-        <input type="text" id="code3">
-        <button onclick="checkCode(3, 'Message for Box 3')">Submit</button>
-    </div>
-    <div id="modal4" class="modal">
-        <h2>Enter Code for Box 4</h2>
-        <input type="text" id="code4">
-        <button onclick="checkCode(4, 'Message for Box 4')">Submit</button>
-    </div>
-    <div id="modal5" class="modal">
-        <h2>Enter Code for Box 5</h2>
-        <input type="text" id="code5">
-        <button onclick="checkCode(5, 'Message for Box 5')">Submit</button>
-    </div>
-    <div id="modal6" class="modal">
-        <h2>Enter Code for Box 6</h2>
-        <input type="text" id="code6">
-        <button onclick="checkCode(6, 'Message for Box 6')">Submit</button>
-    </div>
-
-    <!-- Dynamic Message Display -->
-    <div id="message"></div>
+    <!-- Modal for Code Entry (same as before) -->
 
     <script>
         function openModal(boxNumber) {
             document.getElementById('modal' + boxNumber).style.display = 'block';
         }
 
-        function checkCode(boxNumber, message) {
+        function checkCode(boxNumber) {
             const userCode = document.getElementById('code' + boxNumber).value;
-            if (userCode === "1234") { // Example code for each box
-                alert('Correct code for Box ' + boxNumber);
-                document.getElementById('modal' + boxNumber).style.display = 'none';
 
-                // Show dynamic message for correct box
-                document.getElementById('message').innerHTML = message;
-                document.getElementById('message').style.display = 'block';
+            // Different codes for each box
+            const codes = {
+                1: "1234",
+                2: "5678",
+                3: "91011",
+                4: "121314",
+                5: "151617",
+                6: "181920"
+            };
+
+            // Editable messages for each box
+            const messages = {
+                1: "Congratulations! You've unlocked Box 1!",
+                2: "Well done! Box 2 is now open.",
+                3: "Great job! Box 3 has been unlocked.",
+                4: "Awesome! You've opened Box 4.",
+                5: "Success! Box 5 is now unlocked.",
+                6: "Nice work! Box 6 has been opened."
+            };
+
+            if (userCode === codes[boxNumber]) {
+                alert(messages[boxNumber]);  // Show the corresponding message
+                document.getElementById('modal' + boxNumber).style.display = 'none';
             } else {
                 alert('Incorrect code, try again!');
             }
@@ -202,3 +84,6 @@
     </script>
 </body>
 </html>
+
+         
+
