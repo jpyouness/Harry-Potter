@@ -16,19 +16,6 @@
             overflow: hidden;
         }
 
-        h1 {
-            text-align: center;
-            padding: 20px;
-            font-size: 3em;
-            font-family: 'Courier New', Courier, monospace;
-            text-transform: uppercase;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
-        }
-
         .scene {
             position: fixed;
             width: 100%;
@@ -135,7 +122,6 @@
 <body>
 
     <div class="scene">
-        <h1>Harry Potter Escape Room</h1>
         <div class="wizard"></div>
         
         <div class="box" onclick="openModal(1)">
@@ -223,4 +209,12 @@
 
             if (userCode === codes[boxNumber]) {
                 alert(messages[boxNumber]);
-                document.getElementById('modal' + box
+                document.getElementById('modal' + boxNumber).style.display = 'none';  // Close modal after success
+            } else {
+                alert("Incorrect code. Try again.");
+            }
+        }
+    </script>
+</body>
+</html>
+
