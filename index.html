@@ -194,36 +194,37 @@
     <div id="message-box" class="message-box"></div>
 
     <script>
-        const boxMessages = {
-            1: "Box 1 code is correct! Message for Box 1.",
-            2: "Box 2 code is correct! Message for Box 2.",
-            3: "Box 3 code is correct! Message for Box 3.",
-            4: "Box 4 code is correct! Message for Box 4.",
-            5: "Box 5 code is correct! Message for Box 5.",
-            6: "Box 6 code is correct! Message for Box 6."
+        // Define unique codes for each box
+        const correctCodes = {
+            1: "abcd",  // Correct code for Box 1
+            2: "efgh",  // Correct code for Box 2
+            3: "ijkl",  // Correct code for Box 3
+            4: "mnop",  // Correct code for Box 4
+            5: "qrst",  // Correct code for Box 5
+            6: "uvwx"   // Correct code for Box 6
         };
 
+        // Define messages for each box
+        const boxMessages = {
+            1: "Box 1 code is correct! Welcome to the secret area!",
+            2: "Box 2 code is correct! You've unlocked a new mystery!",
+            3: "Box 3 code is correct! You are one step closer!",
+            4: "Box 4 code is correct! You've solved another puzzle!",
+            5: "Box 5 code is correct! You're on the right track!",
+            6: "Box 6 code is correct! Final step complete!"
+        };
+
+        // Function to open the modal for entering the code
         function openModal(boxNumber) {
             document.getElementById('modal' + boxNumber).style.display = 'block';
         }
 
+        // Function to check the entered code
         function checkCode(boxNumber) {
             const userCode = document.getElementById('code' + boxNumber).value;
-            if (userCode === "1234") { // Example code for each box
+            if (userCode === correctCodes[boxNumber]) {
                 alert(boxMessages[boxNumber]);
                 document.getElementById('modal' + boxNumber).style.display = 'none';
                 if (boxNumber === 1) {
-                    document.getElementById('hidden-image').style.display = 'block'; // Show image after first box code is correct
-                }
-            } else {
-                alert('Incorrect code, try again!');
-            }
-        }
+                    document.getElementById('hidden-image').style.display = 'block'; // Show image after first box
 
-        function showMessage(message) {
-            const messageBox = document.getElementById('message-box');
-            messageBox.innerText = message;
-            messageBox.style.display = 'block';
-        }
-
-        // Close modals
