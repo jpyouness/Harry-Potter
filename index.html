@@ -135,7 +135,7 @@
 <body>
 
     <div class="scene">
-        <h1></h1>
+        <h1>Harry Potter Escape Room</h1>
         <div class="wizard"></div>
         
         <div class="box" onclick="openModal(1)">
@@ -223,12 +223,4 @@
 
             if (userCode === codes[boxNumber]) {
                 alert(messages[boxNumber]);
-                document.getElementById('modal' + boxNumber).style.display = 'none';
-            } else {
-                alert('Incorrect code, try again!');
-            }
-        }
-
-        // Close modals if clicked outside
-    
-               
+                document.getElementById('modal' + box
