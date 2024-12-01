@@ -220,11 +220,3 @@
         }
 
         // Function to check the entered code
-        function checkCode(boxNumber) {
-            const userCode = document.getElementById('code' + boxNumber).value;
-            if (userCode === correctCodes[boxNumber]) {
-                alert(boxMessages[boxNumber]);
-                document.getElementById('modal' + boxNumber).style.display = 'none';
-                if (boxNumber === 1) {
-                    document.getElementById('hidden-image').style.display = 'block'; // Show image after first box
-
