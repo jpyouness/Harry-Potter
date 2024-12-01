@@ -105,6 +105,28 @@
         .modal button:hover {
             background-color: #45a049;
         }
+        .hidden-image {
+            display: none;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            cursor: pointer;
+        }
+        .message-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 80%;
+        }
     </style>
 </head>
 <body>
@@ -165,41 +187,43 @@
         <button onclick="checkCode(6)">Submit</button>
     </div>
 
+    <!-- Hidden Image -->
+    <img src="https://www.example.com/your-image.png" alt="Image" class="hidden-image" id="hidden-image" onclick="showMessage('Congratulations! You unlocked the secret!')">
+
+    <!-- Dynamic Message Box -->
+    <div id="message-box" class="message-box"></div>
+
     <script>
+        const boxMessages = {
+            1: "Box 1 code is correct! Message for Box 1.",
+            2: "Box 2 code is correct! Message for Box 2.",
+            3: "Box 3 code is correct! Message for Box 3.",
+            4: "Box 4 code is correct! Message for Box 4.",
+            5: "Box 5 code is correct! Message for Box 5.",
+            6: "Box 6 code is correct! Message for Box 6."
+        };
+
         function openModal(boxNumber) {
             document.getElementById('modal' + boxNumber).style.display = 'block';
         }
 
         function checkCode(boxNumber) {
             const userCode = document.getElementById('code' + boxNumber).value;
-
-            // Different codes for each box
-            const codes = {
-                1: "1234",
-                2: "5678",
-                3: "91011",
-                4: "121314",
-                5: "151617",
-                6: "181920"
-            };
-
-            if (userCode === codes[boxNumber]) {
-                alert('Correct code for Box ' + boxNumber);
+            if (userCode === "1234") { // Example code for each box
+                alert(boxMessages[boxNumber]);
                 document.getElementById('modal' + boxNumber).style.display = 'none';
+                if (boxNumber === 1) {
+                    document.getElementById('hidden-image').style.display = 'block'; // Show image after first box code is correct
+                }
             } else {
                 alert('Incorrect code, try again!');
             }
         }
 
-        // Close modals if clicked outside
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        };
-    </script>
-</body>
-</html>
+        function showMessage(message) {
+            const messageBox = document.getElementById('message-box');
+            messageBox.innerText = message;
+            messageBox.style.display = 'block';
+        }
+
+        // Close modals
