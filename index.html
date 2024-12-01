@@ -194,6 +194,9 @@
     <div id="message-box" class="message-box"></div>
 
     <script>
+        // Debugging log to check if script is running
+        console.log("JavaScript loaded successfully");
+
         // Define unique codes for each box
         const correctCodes = {
             1: "abcd",  // Correct code for Box 1
@@ -208,20 +211,22 @@
         const boxMessages = {
             1: "Box 1 code is correct! Welcome to the secret area!",
             2: "Box 2 code is correct! You've unlocked a new mystery!",
-            3: "Box 3 code is correct! You are one step closer!",
-            4: "Box 4 code is correct! You've solved another puzzle!",
-            5: "Box 5 code is correct! You're on the right track!",
-            6: "Box 6 code is correct! Final step complete!"
+            3: "Box 3 code is correct! You are getting closer!",
+            4: "Box 4 code is correct! Amazing progress!",
+            5: "Box 5 code is correct! You're a true wizard!",
+            6: "Box 6 code is correct! Well done on unlocking the final box!"
         };
 
-        // Function to open the modal for entering the code
+        // Open the modal when a box is clicked
         function openModal(boxNumber) {
+            console.log(`Box ${boxNumber} clicked`);  // Debugging log
             document.getElementById('modal' + boxNumber).style.display = 'block';
         }
 
-        // Function to check the entered code
+        // Check the entered code and unlock the image and message
         function checkCode(boxNumber) {
             const enteredCode = document.getElementById('code' + boxNumber).value;
+            console.log(`Entered Code for Box ${boxNumber}: ${enteredCode}`);  // Debugging log
             if (enteredCode === correctCodes[boxNumber]) {
                 document.getElementById('modal' + boxNumber).style.display = 'none';
                 document.getElementById('hidden-image').style.display = 'block';
@@ -233,6 +238,7 @@
 
         // Function to show a message after unlocking
         function showMessage(message) {
+            console.log(`Showing message: ${message}`);  // Debugging log
             const messageBox = document.getElementById('message-box');
             messageBox.innerHTML = message;
             messageBox.style.display = 'block';
