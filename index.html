@@ -1,252 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harry Potter Escape Room</title>
-    <style>
-        body {
-            background-color: #1a1a1a;
-            font-family: 'Arial', sans-serif;
-            color: white;
-            margin: 0;
-            padding: 0;
-            position: relative;
-        }
-        h1 {
-            text-align: center;
-            padding: 20px;
-            font-size: 3em;
-            font-family: 'Courier New', Courier, monospace;
-            text-transform: uppercase;
-        }
-        .scene {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images3.alphacoders.com/130/thumb-1920-1303534.png');
-            background-size: cover;
-            background-position: center;
-            animation: moveBackground 30s infinite linear;
-        }
-        @keyframes moveBackground {
-            0% { background-position: center; }
-            100% { background-position: 100% 50%; }
-        }
-        .wizard {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            width: 100px;
-            height: 200px;
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqD9wzxqx1GuKSeybkiY0a0Ql2M8voUFq3-A&s');
-            background-size: contain;
-            background-repeat: no-repeat;
-            animation: flyAround 10s infinite linear;
-        }
-        @keyframes flyAround {
-            0% { left: 0%; top: 50%; }
-            25% { left: 50%; top: 40%; }
-            50% { left: 100%; top: 50%; }
-            75% { left: 50%; top: 60%; }
-            100% { left: 0%; top: 50%; }
-        }
-        .box {
-            width: 120px;
-            height: 120px;
-            margin: 50px;
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 10px;
-            display: inline-block;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .box:hover {
-            transform: scale(1.1);
-        }
-        .box-inner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            font-size: 1.2em;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-        }
-        .modal input {
-            width: 80%;
-            padding: 10px;
-            font-size: 1em;
-            margin-top: 10px;
-        }
-        .modal button {
-            padding: 10px 20px;
-            margin-top: 10px;
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .modal button:hover {
-            background-color: #45a049;
-        }
-        /* Cloud Style */
-        .cloud {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            width: 150px;
-            height: 80px;
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTasqZpZqub9pCqv-FacLU4qkM16YcPBY1KXA&s');
-            background-size: contain;
-            background-repeat: no-repeat;
-            cursor: pointer;
-            transform: translateX(-50%);
-        }
-        .message-box {
-            display: none;
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-            color: white;
-        }
-    </style>
-</head>
-<body>
+<script>
+    // Correct codes for each box
+    const correctCodes = {
+        1: "1234",
+        2: "2345",
+        3: "3456",
+        4: "4567",
+        5: "5678",
+        6: "6789"
+    };
 
-    <div class="scene">
-        <h1>Harry Potter Escape Room</h1>
-        <div class="wizard"></div>
-        
-        <div class="box" onclick="openModal(1)">
-            <div class="box-inner">Box 1</div>
-        </div>
-        <div class="box" onclick="openModal(2)">
-            <div class="box-inner">Box 2</div>
-        </div>
-        <div class="box" onclick="openModal(3)">
-            <div class="box-inner">Box 3</div>
-        </div>
-        <div class="box" onclick="openModal(4)">
-            <div class="box-inner">Box 4</div>
-        </div>
-        <div class="box" onclick="openModal(5)">
-            <div class="box-inner">Box 5</div>
-        </div>
-        <div class="box" onclick="openModal(6)">
-            <div class="box-inner">Box 6</div>
-        </div>
-    </div>
+    // Messages for each box
+    const boxMessages = {
+        1: "Box 1 code is correct! The cloud has appeared!",
+        2: "Box 2 code is correct! Keep going!",
+        3: "Box 3 code is correct! Almost there!",
+        4: "Box 4 code is correct! Amazing progress!",
+        5: "Box 5 code is correct! You're a true wizard!",
+        6: "Box 6 code is correct! Well done on unlocking the final box!"
+    };
 
-    <!-- Modal for Code Entry -->
-    <div id="modal1" class="modal">
-        <h2>Enter Code for Box 1</h2>
-        <input type="text" id="code1">
-        <button onclick="checkCode(1)">Submit</button>
-    </div>
-    <div id="modal2" class="modal">
-        <h2>Enter Code for Box 2</h2>
-        <input type="text" id="code2">
-        <button onclick="checkCode(2)">Submit</button>
-    </div>
-    <div id="modal3" class="modal">
-        <h2>Enter Code for Box 3</h2>
-        <input type="text" id="code3">
-        <button onclick="checkCode(3)">Submit</button>
-    </div>
-    <div id="modal4" class="modal">
-        <h2>Enter Code for Box 4</h2>
-        <input type="text" id="code4">
-        <button onclick="checkCode(4)">Submit</button>
-    </div>
-    <div id="modal5" class="modal">
-        <h2>Enter Code for Box 5</h2>
-        <input type="text" id="code5">
-        <button onclick="checkCode(5)">Submit</button>
-    </div>
-    <div id="modal6" class="modal">
-        <h2>Enter Code for Box 6</h2>
-        <input type="text" id="code6">
-        <button onclick="checkCode(6)">Submit</button>
-    </div>
+    // Open the modal when a box is clicked
+    function openModal(boxNumber) {
+        console.log(`Opening modal for box ${boxNumber}`);  // Debugging line
+        document.getElementById('modal' + boxNumber).style.display = 'block';
+    }
 
-    <!-- Hidden Cloud that Appears When Box 1 Code is Correct -->
-    <div id="hidden-cloud" class="cloud" onclick="showCloudMessage()"></div>
+    // Check the entered code and unlock the image and message
+    function checkCode(boxNumber) {
+        const enteredCode = document.getElementById('code' + boxNumber).value;
+        console.log(`Checking code for box ${boxNumber}: ${enteredCode}`);  // Debugging line
 
-    <!-- Message Box -->
-    <div id="message-box" class="message-box"></div>
+        if (enteredCode === correctCodes[boxNumber]) {
+            console.log(`Code for box ${boxNumber} is correct`);  // Debugging line
+            document.getElementById('modal' + boxNumber).style.display = 'none';
+            alert(boxMessages[boxNumber]);
 
-    <script>
-        // Correct codes for each box
-        const correctCodes = {
-            1: "1234",
-            2: "2345",
-            3: "3456",
-            4: "4567",
-            5: "5678",
-            6: "6789"
-        };
-
-        // Messages for each box
-        const boxMessages = {
-            1: "Box 1 code is correct! The cloud has appeared!",
-            2: "Box 2 code is correct! Keep going!",
-            3: "Box 3 code is correct! Almost there!",
-            4: "Box 4 code is correct! Amazing progress!",
-            5: "Box 5 code is correct! You're a true wizard!",
-            6: "Box 6 code is correct! Well done on unlocking the final box!"
-        };
-
-        // Open the modal when a box is clicked
-        function openModal(boxNumber) {
-            document.getElementById('modal' + boxNumber).style.display = 'block';
-        }
-
-        // Check the entered code and unlock the image and message
-        function checkCode(boxNumber) {
-            const enteredCode = document.getElementById('code' + boxNumber).value;
-            if (enteredCode === correctCodes[boxNumber]) {
-                document.getElementById('modal' + boxNumber).style.display = 'none';
-                alert(boxMessages[boxNumber]);
-
-                // Show the cloud if box 1 code is correct
-                if (boxNumber === 1) {
-                    document.getElementById('hidden-cloud').style.display = 'block';
-                }
-            } else {
-                alert("Incorrect code. Try again!");
+            // Show the cloud if box 1 code is correct
+            if (boxNumber === 1) {
+                console.log("Showing cloud");  // Debugging line
+                document.getElementById('hidden-cloud').style.display = 'block';
             }
+        } else {
+            console.log(`Code for box ${boxNumber} is incorrect`);  // Debugging line
+            alert("Incorrect code. Try again!");
         }
+    }
 
-        // Show the cloud message when the cloud is clicked
-        function showCloudMessage() {
-            const cloudMessage = "You clicked the cloud! This message is dynamic!";
-            document.getElementById('message-box').innerText = cloudMessage;
-            document.getElementById('message-box').style.display = 'block';
-        }
-    </script>
-
-</body>
-</html>
+    // Show the cloud message when the cloud is clicked
+    function showCloudMessage() {
+        const cloudMessage = "You clicked the cloud! This message is dynamic!";
+        console.log("Cloud clicked! Showing message");  // Debugging line
+        document.getElementById('message-box').innerText = cloudMessage;
+        document.getElementById('message-box').style.display = 'block';
+    }
+</script>
