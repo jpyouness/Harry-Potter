@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter Escape Room</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            font-size: 3em;
+            font-family: 'Courier New', Courier, monospace;
+            text-transform: uppercase;
+        }
+        .scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.pinimg.com/originals/58/4c/19/584c19801a64c5f5f198b6c441d0cf7e.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: moveBackground 30s infinite linear;
+        }
+        @keyframes moveBackground {
+            0% { background-position: center; }
+            100% { background-position: 100% 50%; }
+        }
+        .wizard {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            width: 100px;
+            height: 200px;
+            background-image: url('https://png.pngtree.com/png-clipart/20190508/ourmid/pngtree-a-wizard-silhouette-riding-on-a-broom-on-cartoon-halloween-png-image_881922.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: flyAround 10s infinite linear;
+        }
+        @keyframes flyAround {
+            0% { left: 0%; top: 50%; }
+            25% { left: 50%; top: 40%; }
+            50% { left: 100%; top: 50%; }
+            75% { left: 50%; top: 60%; }
+            100% { left: 0%; top: 50%; }
+        }
+        .box {
+            width: 120px;
+            height: 120px;
+            margin: 50px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .box:hover {
+            transform: scale(1.1);
+        }
+        .box-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            font-size: 1.2em;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+        .modal input {
+            width: 80%;
+            padding: 10px;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        .modal button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .modal button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scene">
+        <h1>Harry Potter Escape Room</h1>
+        <div class="wizard"></div>
+        
+        <div class="box" onclick="openModal(1)">
+            <div class="box-inner">Box 1</div>
+        </div>
+        <div class="box" onclick="openModal(2)">
+            <div class="box-inner">Box 2</div>
+        </div>
+        <div class="box" onclick="openModal(3)">
+            <div class="box-inner">Box 3</div>
+        </div>
+        <div class="box" onclick="openModal(4)">
+            <div class="box-inner">Box 4</div>
+        </div>
+        <div class="box" onclick="openModal(5)">
+            <div class="box-inner">Box 5</div>
+        </div>
+        <div class="box" onclick="openModal(6)">
+            <div class="box-inner">Box 6</div>
+        </div>
+    </div>
+
+    <!-- Modal for Code Entry -->
+    <div id="modal1" class="modal">
+        <h2>Enter Code for Box 1</h2>
+        <input type="text" id="code1">
+        <button onclick="checkCode(1)">Submit</button>
+    </div>
+    <div id="modal2" class="modal">
+        <h2>Enter Code for Box 2</h2>
+        <input type="text" id="code2">
+        <button onclick="checkCode(2)">Submit</button>
+    </div>
+    <div id="modal3" class="modal">
+        <h2>Enter Code for Box 3</h2>
+        <input type="text" id="code3">
+        <button onclick="checkCode(3)">Submit</button>
+    </div>
+    <div id="modal4" class="modal">
+        <h2>Enter Code for Box 4</h2>
+        <input type="text" id="code4">
+        <button onclick="checkCode(4)">Submit</button>
+    </div>
+    <div id="modal5" class="modal">
+        <h2>Enter Code for Box 5</h2>
+        <input type="text" id="code5">
+        <button onclick="checkCode(5)">Submit</button>
+    </div>
+    <div id="modal6" class="modal">
+        <h2>Enter Code for Box 6</h2>
+        <input type="text" id="code6">
+        <button onclick="checkCode(6)">Submit</button>
+    </div>
+
+    <script>
+        function openModal(boxNumber) {
+            document.getElementById('modal' + boxNumber).style.display = 'block';
+        }
+
+        function checkCode(boxNumber) {
+            const userCode = document.getElementById('code' + boxNumber).value;
+            if (userCode === "1234") { // Example code for each box
+                alert('Correct code for Box ' + boxNumber);
+                document.getElementById('modal' + boxNumber).style.display = 'none';
+            } else {
+                alert('Incorrect code, try again!');
+            }
+        }
+
+        // Close modals if clicked outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        };
+    </script>
+</body>
+</html>
