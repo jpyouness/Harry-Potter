@@ -5,7 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harry Potter Escape Room</title>
     <style>
-        /* Same styles as before */
+        body {
+            background-color: #1a1a1a;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            font-size: 3em;
+            font-family: 'Courier New', Courier, monospace;
+            text-transform: uppercase;
+        }
+        .scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images3.alphacoders.com/130/thumb-1920-1303534.png');
+            background-size: cover;
+            background-position: center;
+            animation: moveBackground 30s infinite linear;
+        }
+        @keyframes moveBackground {
+            0% { background-position: center; }
+            100% { background-position: 100% 50%; }
+        }
+        .wizard {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            width: 100px;
+            height: 200px;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqD9wzxqx1GuKSeybkiY0a0Ql2M8voUFq3-A&s');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: flyAround 10s infinite linear;
+        }
+        @keyframes flyAround {
+            0% { left: 0%; top: 50%; }
+            25% { left: 50%; top: 40%; }
+            50% { left: 100%; top: 50%; }
+            75% { left: 50%; top: 60%; }
+            100% { left: 0%; top: 50%; }
+        }
+        .box {
+            width: 120px;
+            height: 120px;
+            margin: 50px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .box:hover {
+            transform: scale(1.1);
+        }
+        .box-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            font-size: 1.2em;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+        .modal input {
+            width: 80%;
+            padding: 10px;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        .modal button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .modal button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -34,7 +133,37 @@
         </div>
     </div>
 
-    <!-- Modal for Code Entry (same as before) -->
+    <!-- Modal for Code Entry -->
+    <div id="modal1" class="modal">
+        <h2>Enter Code for Box 1</h2>
+        <input type="text" id="code1">
+        <button onclick="checkCode(1)">Submit</button>
+    </div>
+    <div id="modal2" class="modal">
+        <h2>Enter Code for Box 2</h2>
+        <input type="text" id="code2">
+        <button onclick="checkCode(2)">Submit</button>
+    </div>
+    <div id="modal3" class="modal">
+        <h2>Enter Code for Box 3</h2>
+        <input type="text" id="code3">
+        <button onclick="checkCode(3)">Submit</button>
+    </div>
+    <div id="modal4" class="modal">
+        <h2>Enter Code for Box 4</h2>
+        <input type="text" id="code4">
+        <button onclick="checkCode(4)">Submit</button>
+    </div>
+    <div id="modal5" class="modal">
+        <h2>Enter Code for Box 5</h2>
+        <input type="text" id="code5">
+        <button onclick="checkCode(5)">Submit</button>
+    </div>
+    <div id="modal6" class="modal">
+        <h2>Enter Code for Box 6</h2>
+        <input type="text" id="code6">
+        <button onclick="checkCode(6)">Submit</button>
+    </div>
 
     <script>
         function openModal(boxNumber) {
@@ -46,22 +175,22 @@
 
             // Different codes for each box
             const codes = {
-                1: "4653",
-                2: "13",
-                3: "1299",
-                4: "corona",
-                5: "sofa",
-                6: "342 678"
+                1: "1234",
+                2: "5678",
+                3: "91011",
+                4: "121314",
+                5: "151617",
+                6: "181920"
             };
 
             // Editable messages for each box
             const messages = {
-                1: "I will reveal myself to those who seek jesus christ, the light in the dark. You can always count on him to guide you when you feel lost, and understand his wisdoms through the bible, the book of truth",
-                2: "Harry potter had an invisible clock that allowed him to go invisible. it always came in handy when he wanted to hide himself when he did not want to be seen",
-                3: "Winters are hard at Hogwarts! the cold is so strong. if we could move that cold maybe we could get that problem solved",
-                4: "https://youtu.be/7gswtbX8G7Q?si=VtrBAIAxyenW29Fu",
-                5: "A wizard always lead with his footwork, the hands then follow with the wand. Google Da vinci or something"
-                6: "Passcode to escape the room: jp ktir awe"
+                1: "Congratulations! You've unlocked Box 1!",
+                2: "Well done! Box 2 is now open.",
+                3: "Great job! Box 3 has been unlocked.",
+                4: "Awesome! You've opened Box 4.",
+                5: "Success! Box 5 is now unlocked.",
+                6: "Nice work! Box 6 has been opened."
             };
 
             if (userCode === codes[boxNumber]) {
@@ -82,8 +211,7 @@
             });
         };
     </script>
+
 </body>
 </html>
-
-         
 
